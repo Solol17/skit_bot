@@ -3,7 +3,7 @@ import os
 
 import telebot
 from configurations import geckodriver_path, firefox_location, source_dir, document_path
-from skit.first_project import SkitConnector
+from first_project import SkitConnector
 
 # Назначаем токен бота для связи с телеграмом
 bot = telebot.TeleBot(os.getenv("bot_key"))
@@ -30,6 +30,7 @@ def send_welcome(message):
         logging.info(f"Получено сообщение /start")
         yield_answer = skit.get_report()
         for answer_list in yield_answer:
+            print(len(answer_list))
             for answer in answer_list:
                 bot.send_message(message.from_user.id, answer, parse_mode="Markdown")
         bot.send_message(message.from_user.id, "Это, на данный момент, вся актуальная информация по заявкам ЦОП.")

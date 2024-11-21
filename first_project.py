@@ -181,7 +181,11 @@ class SkitConnector:
                 # Если есть просроченные по ГК, то текст заявки с необходимыми данными выйдет отдельно, включая краткое содержание заявки
                 if type_filter == "Просроченные по ГК" and count:
                     model_answer = self.get_tasks_by_url(link)
-                    yield [model_answer]
+                    print(len(model_answer))
+                    yield model_answer
+                    # for z in model_answer:
+                    #    print(len(z))
+                    #    yield z
             answer_list.insert(0, answer)
             yield answer_list
 
