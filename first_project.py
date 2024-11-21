@@ -3,7 +3,7 @@ import datetime
 import logging
 import os
 import time
-from datetime import datetime, timedelta
+from datetime import datetime
 from docx.shared import RGBColor
 from docx.enum.text import WD_PARAGRAPH_ALIGNMENT
 from babel.dates import format_datetime
@@ -16,8 +16,6 @@ from selenium.webdriver.firefox.options import Options
 import docx
 import configurations
 import re
-
-from configurations import my_cache
 
 
 # Создание класса SkitConnector
@@ -181,11 +179,7 @@ class SkitConnector:
                 # Если есть просроченные по ГК, то текст заявки с необходимыми данными выйдет отдельно, включая краткое содержание заявки
                 if type_filter == "Просроченные по ГК" and count:
                     model_answer = self.get_tasks_by_url(link)
-                    print(len(model_answer))
-                    yield model_answer
-                    # for z in model_answer:
-                    #    print(len(z))
-                    #    yield z
+                    answer_list.extend(model_answer)
             answer_list.insert(0, answer)
             yield answer_list
 
