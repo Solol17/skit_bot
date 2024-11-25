@@ -180,6 +180,7 @@ class SkitConnector:
                 if type_filter == "Просроченные по ГК" and count:
                     model_answer = self.get_tasks_by_url(link)
                     answer_list.extend(model_answer)
+                    yield model_answer
             answer_list.insert(0, answer)
             yield answer_list
 
@@ -263,8 +264,13 @@ class SkitConnector:
                     run.font.color.rgb = RGBColor(0, 0, 0)
 
     # Метод создания таблицы с количеством заявок по каждой группе и статусам
-    def formation_table(self, name_docx):
+    def writing_docx(self, name_docx):
+        self.doc = docx.Document()
+
+        # Создадим временные метки в файле docx
+        self.data_time()
         logging.info(f"Вывод таблицы с количеством заявок в файл")
+
         # Альбомная ориентация
         section = self.doc.sections[0]
         section.orientation = 1

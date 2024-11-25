@@ -37,8 +37,7 @@ def send_welcome(message):
     if message.text == "/report":
         logging.info(f"Получено сообщение /report")
         bot.send_message(message.from_user.id, "Доброго времени суток! Начинаю подготовку отчёта.")
-        skit.data_time()
-        skit.formation_table(document_path)
+        skit.writing_docx(document_path)
         bot.send_document(message.chat.id, open(document_path, 'rb'))
 
 @bot.message_handler(func=lambda message: True)
