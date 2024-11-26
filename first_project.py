@@ -1,5 +1,6 @@
 import csv
 import datetime
+import json
 import logging
 import os
 import time
@@ -16,6 +17,8 @@ from selenium.webdriver.firefox.options import Options
 import docx
 import configurations
 import re
+
+from configurations import redis_server
 
 
 # Создание класса SkitConnector
@@ -114,12 +117,12 @@ class SkitConnector:
             current_task = (f"ID заявки: {id_task} \n Дата открытия: {open_data}\nТема: {header_task} \n"
                             f"Текст заявки:{description} \n Последний комментарий: {last_comment}")
 
-            model_answer = configurations.my_cache.get(current_task)
+            model_answer = configurations.redis_server.get(current_task)
             if model_answer:
                 logging.info(f"Ответ из кэша Mistral {id_task}")
                 answer_list.append(f"*Заявка*: [{id_task}]({link_task})\n"
                                    f"*Дата заявки*: {open_data}\n"
-                                   f"*Краткое содержание заявки*:\n{model_answer}\n"
+                                   f"*Краткое содержание заявки*:\n{json.loads(model_answer)}\n"
                                    f"*Последний комментарий*:\n{last_comment}\n"
                                    f"\n")
                 continue
@@ -140,9 +143,9 @@ class SkitConnector:
                     },
                 ]
             )
-            model_answer = chat_response.choices[0].message.content
+            model_answer = json.dumps(chat_response.choices[0].message.content, ensure_ascii=False)
 
-            configurations.my_cache[current_task] = model_answer
+            redis_server.set(current_task, model_answer, ex=60*60*24*7)
 
             answer_list.append(f"*Заявка*: [{id_task}]({link_task})\n"
                        f"*Дата заявки*: {open_data}\n"
