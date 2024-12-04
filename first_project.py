@@ -115,7 +115,7 @@ class SkitConnector:
             try:
                 description = cols[15].find_element(By.CLASS_NAME, "fup-popup").get_attribute("textContent")
             except NoSuchElementException:
-                description = "Описание не найдено"
+                description = cols[15].text
             # Все необходимые данные заявки
             current_task = (f"ID заявки: {id_task} \n Дата открытия: {open_data}\nТема: {header_task} \n"
                             f"Текст заявки:{description} \n Последний комментарий: {last_comment}")
