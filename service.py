@@ -20,9 +20,9 @@ class AppServerSvc(win32serviceutil.ServiceFramework):
         # Установка таймаута по умолчанию для сокетов
         socket.setdefaulttimeout(60)
 
-    # Метод, который вызывается при запуске сервиса
+    # Метод, который вызывается при остановке сервиса
     def SvcStop(self):
-        # Сообщение о том, что сервс останавливается
+        # Сообщение о том, что сервис останавливается
         self.ReportServiceStatus(win32service.SERVICE_STOP_PENDING)
         # Установка события для остановки сервиса
         win32event.SetEvent(self.hWaitStop)

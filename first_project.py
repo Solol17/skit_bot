@@ -132,7 +132,7 @@ class SkitConnector:
             # Использование Mistral
             client = Mistral(api_key=configurations.api_key)
             # Чтение файла prompt
-            with open("C:\\Users\\SoldatovOA\\PycharmProjects\\pythonProject\\prompt.txt", "r",
+            with open("C:\\Users\\SoldatovOA\\PycharmProjects\\skit_bot\\prompt.txt", "r",
                       encoding="utf-8") as file:
                 prompt = file.read()
             # Формирование полного ответа с данными заявок и кратким описанием (обработанным текстом нейросетью)

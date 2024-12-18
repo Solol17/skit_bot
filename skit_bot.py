@@ -1,6 +1,5 @@
 import logging
 import os
-
 import telebot
 from configurations import geckodriver_path, firefox_location, source_dir, document_path
 from first_project import SkitConnector
