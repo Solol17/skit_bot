@@ -1,9 +1,12 @@
 import logging
 import os
+
 import telebot
 from configurations import geckodriver_path, firefox_location, source_dir, document_path
 from first_project import SkitConnector
+from dotenv import load_dotenv
 
+load_dotenv()
 # Назначаем токен бота для связи с телеграмом
 bot = telebot.TeleBot(os.getenv("bot_key"))
 # Создание переменных, в которых хранятся данные для авторизации
@@ -43,4 +46,4 @@ def send_welcome(message):
 def echo_all(message):
   bot.reply_to(message, message.text)
 
-bot.infinity_polling()
+# bot.infinity_polling()

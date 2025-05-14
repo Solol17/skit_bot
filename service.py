@@ -10,7 +10,7 @@ class AppServerSvc(win32serviceutil.ServiceFramework):
     # Имя сервиса, которое будет использоваться для управления сервисом
     _svc_name_ = "SKIT_bot"
     # Имя сервиса, которое будет отображаться в диспетчере служб сервиса Windows
-    _svc_display_name_ = "SKIT_application report"
+    _svc_display_name_ = "SKIT_application_report"
     # Создание конструктора
     def __init__(self, args):
         # Вызов конструктора родительского класса
@@ -38,7 +38,13 @@ class AppServerSvc(win32serviceutil.ServiceFramework):
     # Основной метод сервиса, который выполнять основную логику
     def main(self):
         # Запуск бота в бесконечном цикле опроса
-        bot.infinity_polling()
+        while True:
+            # Проверка на событие остановки сервиса
+            rc = win32event.WaitForSingleObject(self.hWaitStop, 1000)
+            if rc == win32event.WAIT_OBJECT_0:
+                break
+            bot.infinity_polling()
+
 
 if __name__ == '__main__':
     win32serviceutil.HandleCommandLine(AppServerSvc)

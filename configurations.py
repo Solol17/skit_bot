@@ -9,7 +9,7 @@ find_str = "С 1 по "
 firefox_location = "C:\\Program Files\\Mozilla Firefox\\firefox.exe"
 source_dir = os.path.abspath("sources")
 document_path = os.path.abspath("skit_report.docx")
-redis_server =  redis.Redis(host='192.168.14.57', port=6379, db=0)
+redis_server =  redis.Redis(host='192.168.14.174', port=6379, db=0)
 
 
 api_key = os.getenv("api_key")
