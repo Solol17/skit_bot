@@ -1,0 +1,33 @@
+services:
+  skit_bot:
+    build: src
+    environment:
+      - skit_bot
+    container_name: skit_bot
+    working_dir: /action/workspace/src
+    volumes:
+      - ./src/:/action/workspace/src
+    command: python skit_bot.py
+    networks:
+      - skit_report
+    restart: always
+    env_file:
+      - .env
+
+  redis:
+    image: redis:latest
+    container_name: redis_container
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - skit_report
+
+volumes:
+  redis_data:
+
+networks:
+  skit_report:
+    driver: bridge
