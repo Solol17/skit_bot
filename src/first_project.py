@@ -133,7 +133,7 @@ class SkitConnector:
                 continue
             # Использование Mistral
             client = Mistral(api_key=configurations.api_key)
-            if "Linux" in platform:
+            if "linux" in platform:
                 # Чтение файла prompt
                 with open("/prompt.txt", "r",
                           encoding="utf-8") as file:
